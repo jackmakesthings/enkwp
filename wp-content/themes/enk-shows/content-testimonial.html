@@ -1,0 +1,32 @@
+
+
+<?php
+/* 
+
+ Template Name: Testimonial Modules
+
+*/
+    $args = array(
+      'post_type' => 'client_testimonial'
+    );
+
+    
+    $testimonial = new WP_Query( $args );
+    
+    if( $testimonial->have_posts() ) {
+      while( $testimonial->have_posts() ) {
+        $testimonial->the_post();
+        ?>
+        <div class="testimonial">
+          <h1><?php the_title(); ?> </h1>
+        </div>
+        <?php
+      }
+    }
+    else {
+      echo 'Oh ohm no client!';
+    }
+  ?>
+
+
+  

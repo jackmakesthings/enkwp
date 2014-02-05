@@ -16,6 +16,7 @@ get_header(); ?>
         
         <?php get_template_part( 'content', 'page' ); ?>
         <?php get_template_part( 'content', 'press' ); ?>
+        <?php get_template_part( 'content', 'client-testimonial' ); ?>
 
       <?php endwhile; // end of the loop. ?>
 

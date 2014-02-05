@@ -5,6 +5,11 @@
  * @package ENK Shows
  */
 
+
+
+add_theme_support( 'post-thumbnails' );
+
+
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
@@ -108,12 +113,15 @@ function shortcode_insert_divider( ) {
 // Custom Post Types 
 
 // Register Custom Post Type
+add_action( 'init', 'press_post_type', 0 );
 function press_post_type() {
 
 	$labels = array(
 		'name'                => _x( 'Recent Press', 'Recent Press Modules', 'text_domain' ),
+		// Name of the module, displays on the page
 		'singular_name'       => _x( 'Press', 'Post Type Singular Name', 'text_domain' ),
 		'menu_name'           => __( 'Recent Press', 'text_domain' ),
+		// Name of menu item for the module
 		'parent_item_colon'   => __( 'Parent Item:', 'text_domain' ),
 		'all_items'           => __( 'All Press Items', 'text_domain' ),
 		'view_item'           => __( 'View Item', 'text_domain' ),
@@ -129,7 +137,7 @@ function press_post_type() {
 		'label'               => __( 'press', 'text_domain' ),
 		'description'         => __( 'Recent Press modules for pages', 'text_domain' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', ),
+		'supports'            => array( 'title', 'thumbnail'),
 		'hierarchical'        => false,
 		'public'              => true,
 		'show_ui'             => true,
@@ -143,13 +151,90 @@ function press_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => 'post',
+		'has_archive'					=> true
 	);
 	register_post_type( 'press', $args );
 
 }
 
-// Hook into the 'init' action
-add_action( 'init', 'press_post_type', 0 );
+add_action('init', 'client_testimonial', 0);
+function client_testimonial(){
+	$labels = array(
+		'name' => __('Client Testimonail Page', 'Client Testimonail Page2', 'text_domain'),
+		'singular_name' => 'clienttest',
+		'menu_name' => 'Client Testimonial'
+	);
+
+	$args = array(
+		'label'               => __( 'fuck you\'re couch!', 'text_domain' ),
+		'descriptoin'					=> __('includ eclient shit here'),
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+	);
+
+	register_post_type( 'client-testimonial', $args );
+}
+
+
+
+// add_action( 'init', 'create_post_type' );
+// function create_post_type() {
+// 	register_post_type( 'deals',
+// 		array(
+// 			'labels' => array(
+// 				'name' => __( 'Deals' ),
+// 				'singular_name' => __( 'Deal' )
+// 			),
+// 		'public' => true,
+// 		'has_archive' => true,
+// 		)
+// 	);
+// }
+
+// Test Custom Post Type
+// add_action('init', 'test_post', 0);
+// function test_post(){
+// 	$labels = array(
+// 		'name' 							 => __('plural post type name', 'text_domain'),
+// 		'add_new' 					 => __('single post type name', 'text_domain'),
+// 		'add_new_item' 			 => _x('Add new single post type name', 'text_domain'),
+// 		'edit_item' 				 => __('Edit single post type name', 'text_domain'),
+// 		'new_item'					 => __('New Singl ePost Type Name', 'text_domain'),
+// 		'view_item'					 => __('View single post type name', 'text_domain'),
+// 		'search_items'			 => __('Searn plural post type name', 'text_domain'),
+// 		'not_found'					 => __('No plural post type name found', 'text_domain').
+// 		'not_found_in_trash' => __( 'No plural post type name found in Trash', 'text_domain' ),
+// 		'parent_item_colon'  => __( 'Parent single post type name:', 'text_domain' ),
+// 		'menu_name'          => __( 'plural post type name found', 'text_domain' ),
+// 		);
+// 	$args = array(
+// 		'labels' 							=>$labels,
+// 		'hierarchical' 				=> true,
+// 		'description' 				=> 'description text here',
+// 		'taxonomies' 					=> array('category'),
+// 		'public' 							=> true,
+// 		'show_ui' 						=> true,
+// 		'show_in_menu' 				=> true,
+// 		'menu_position' 			=> 5,
+// 		'show_in_nav_menus'   => true,
+// 		'publicly_queryable'  => true,
+// 		'exclude_from_search' => false,
+// 		'has_archive'         => true,
+// 		'query_var'           => true,
+// 		'can_export'          => true,
+// 		'rewrite'             => true,
+// 		'capability_type'     => 'post', 
+// 		'supports'            => array( 
+// 									'title', 'editor', 'author', 'thumbnail', 
+// 									'custom-fields', 'trackbacks', 'comments', 
+// 									'revisions', 'page-attributes', 'post-formats'
+// 		);
+// 	resgister_post_type('test_post_type_name', $args);
+// }
+
 
 /**
  * Implement the Custom Header feature.
